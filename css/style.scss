@@ -1,0 +1,273 @@
+$minScreen: 320;
+$designScreen: 1440;
+
+// MIXINS
+@mixin adaptiveValue($property, $min, $max) {
+	@if $max<$min {
+		@error "Max cant be less than Min/ Min cant be bigger than Max"
+	}
+
+	$minPX: $min+0px;
+	$minScreenPX: $minScreen+0px;
+	#{$property}: calc($minPX + ($max - $min) * ((100vw - $minScreenPX) / ($designScreen - $minScreen)))
+}
+
+
+@mixin hover-weight-grow($offset: 0.4px, $color: currentColor, $time: 0.3s) {
+    // &:hover {
+    text-shadow:
+        -$offset -$offset 0 $color,
+        $offset -$offset 0 $color,
+        -$offset $offset 0 $color,
+        $offset $offset 0 $color;
+    transition: all $time ease-in-out;
+    // }
+}
+
+// TEMPORARY STYLES
+
+img {
+    background-color: #b5b5b5;
+}
+
+// FONTS
+@font-face {
+    font-family: "Poppins";
+    src: url(../fonts/Poppins-Regular.ttf);
+    font-weight: 400;
+}
+@font-face {
+    font-family: "Poppins";
+    src: url(../fonts/Poppins-Bold.ttf);
+    font-weight: 700;
+}
+@font-face {
+    font-family: "Poppins";
+    src: url(../fonts/Poppins-SemiBold.ttf);
+    font-weight: 600;
+}
+@font-face {
+    font-family: "Poppins";
+    src: url(../fonts/Poppins-Medium.ttf);
+    font-weight: 500;
+}
+
+// VARIABLES
+$backgroundColor: #fff;
+
+$text: #000;
+
+$btnText: #fff;
+$btnBackground: #60c7bf;
+$btnBorder: #fff;
+$btnActiveText: $btnBackground;
+$btnActiveBackground: $btnText;
+$btnActiveBorder: $btnBackground;
+
+$btn2Text: #3d3d3d;
+$btn2Background: #c4c4c4;
+
+$bannerBackground: #2a2a2a;
+$bannerText: #fff;
+
+$banner2Text: #fff;
+$banner2Background: #60c7bf;
+
+$imageEffectColor: rgba(96, 199, 191, 0.5);
+
+// GENERAL STYLES
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $backgroundColor;
+    font-family: "Poppins";
+    font-weight: 400;
+    font-size: 22px;
+    
+
+}
+// .logo_container{
+//     display: inline-block;
+// }
+.section,
+#header {
+    display: flex;
+    justify-content: center;
+}
+.section{
+    margin-bottom: 210px;
+}
+
+.container {
+    max-width: 1248px;
+    width: 100%;
+    padding: 10px;
+}
+// COMPONENTS
+
+h1 {
+    font-weight: bold;
+    color: $text;
+    font-size: 58px;
+}
+
+.btn {
+    cursor: pointer;
+    color: $btnText;
+    background-color: $btnBackground;
+    border: $btnBorder 2px solid;
+    padding: 19px 43px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-size: 26px;
+    box-shadow: 0 4 4 0 rgba($color: #000000, $alpha: 0.1);
+    &:hover {
+        background-color: $btnActiveBackground;
+        color: $btnActiveText;
+        // border: $btnActiveBorder 2px solid;
+    }
+}
+a.btn {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+
+
+.grid_2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+#sec1 {
+    .row {
+        // padding: 10px;
+    }
+    .textrow {
+        // padding-right: clamp(10px, 21%, 140px);
+        @include adaptiveValue(padding-right, 10, 140)
+    }
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.textGrid {
+    display: grid;
+    &.gap39 {
+        grid-gap: 39px;
+    }
+    &.ji_stretch {
+        justify-items: stretch;
+    }
+    &.ji_start {
+        justify-items: start;
+    }
+}
+
+//header section
+#header{
+    padding: 66px 0;
+}
+#header_nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+.nav_list {
+    display: flex;
+    list-style: none;
+}
+
+.nav_item {
+    display: inline-block;
+    margin-right: 57px;
+    @include adaptiveValue(margin-right, 5, 57);
+    &:last-child {
+        margin-right: 0;
+    }
+    // @media (max-width:748px) {
+        
+    // }
+}
+
+.nav_link,
+.logo {
+    color: $text;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    text-wrap:nowrap;
+    &.active,
+    &:hover {
+        // font-weight: 700;
+        @include hover-weight-grow($color: $text, $time: 0.2s);
+    }
+}
+
+hr {
+    border: 1px $text solid;
+    max-width: 183.5px;
+    min-width: 30px;
+    width: 100%;
+}
+
+
+// sec2: banner section
+
+#sec2{
+    .banners{
+        list-style: none;
+        
+        display: grid;
+        grid-template-columns: 0.6fr 1fr 0.3fr;
+        
+        .banner{
+            background-color: $bannerBackground;
+            color: $bannerText;
+            display: block;
+            padding: 31px 50px;
+
+            p{
+                font-size: 34px;
+                font-weight: medium;
+            }
+            h3{
+                font-size: 18px;
+                font-weight: medium;
+            }
+            h2{
+                font-weight: medium;
+                font-size: 24px;
+            }
+            
+            &:first-child{
+                // padding-right: 148px;
+                @include adaptiveValue(padding-right, 50, 148);
+
+            }
+            &:nth-child(2){
+                // margin-left: 77px;
+                @include adaptiveValue(margin-left, 5, 77);
+
+                // padding-right: 234px;
+                @include adaptiveValue(padding-right, 50, 234);
+
+
+            }
+            &:nth-child(3){
+                // margin-left: 129px;
+                @include adaptiveValue(margin-left, 7, 129);
+            }
+        }
+        .header_banner{
+            background-color: $banner2Background;
+            color: $banner2Text;
+        }
+    }
+}
