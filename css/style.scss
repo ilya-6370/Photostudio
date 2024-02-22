@@ -2,16 +2,18 @@ $minScreen: 320;
 $designScreen: 1440;
 
 // MIXINS
-@mixin adaptiveValue($property, $min, $max, $minScreen:$minScreen) {
-	@if $max<$min {
-		@error "Max cant be less than Min/ Min cant be bigger than Max"
-	}
+@mixin adaptiveValue($property, $min, $max, $minScreen: $minScreen) {
+    @if $max<$min {
+        @error "Max cant be less than Min/ Min cant be bigger than Max";
+    }
 
-	$minPX: $min+0px;
-	$minScreenPX: $minScreen+0px;
-	#{$property}: min($max + 0px ,(calc($minPX + ($max - $min) * ((100vw - $minScreenPX) / ($designScreen - $minScreen)))))
+    $minPX: $min + 0px;
+    $minScreenPX: $minScreen + 0px;
+    #{$property}: min(
+        $max + 0px,
+        (calc($minPX + ($max - $min) * ((100vw - $minScreenPX) / ($designScreen - $minScreen))))
+    );
 }
-
 
 @mixin hover-weight-grow($offset: 0.4px, $color: currentColor, $time: 0.3s) {
     // &:hover {
@@ -59,7 +61,6 @@ $text: #000;
 
 $btnText: #fff;
 $btnBackground: #60c7bf;
-$btnBorder: #fff;
 $btnActiveText: $btnBackground;
 $btnActiveBackground: $btnText;
 $btnActiveBorder: $btnBackground;
@@ -75,11 +76,19 @@ $banner2Background: #60c7bf;
 
 $imageEffectColor: rgba(96, 199, 191, 0.5);
 
+$customerBackground: #f6f6f6;
+
+$footerBackground: #3d3d3d;
+$footerText: #fff;
+$footerBorders: #f5f5f5;
 // GENERAL STYLES
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+html {
+    scrollbar-color: $btnBackground #fff;
 }
 
 body {
@@ -87,9 +96,8 @@ body {
     font-family: "Poppins";
     font-weight: 400;
     font-size: 22px;
-    @include adaptiveValue(font-size, 18, 22)
-    
-
+    @include adaptiveValue(font-size, 18, 22);
+    scroll-behavior: smooth;
 }
 // .logo_container{
 //     display: inline-block;
@@ -98,17 +106,18 @@ body {
 #header {
     display: flex;
     justify-content: center;
+    position: relative;
 }
-.section{
+.section {
     margin-bottom: 210px;
 }
 
 .container {
     max-width: 1248px;
     width: 100%;
-    // padding: 10px;
+    padding: 0 10px;
     // @include adaptiveValue(padding, 2, 10);
-    border: solid 2px #000;
+    // border: solid 2px #000;
 }
 // COMPONENTS
 
@@ -116,14 +125,16 @@ h1 {
     font-weight: bold;
     color: $text;
     font-size: 58px;
-    @include adaptiveValue(font-size, 36, 58)
+    @include adaptiveValue(font-size, 36, 58);
 }
-
+button,
+a {
+    cursor: pointer;
+}
 .btn {
     cursor: pointer;
     color: $btnText;
     background-color: $btnBackground;
-    border: $btnBorder 2px solid;
     padding: 19px 43px;
     border-radius: 10px;
     transition: all 0.3s ease;
@@ -142,19 +153,19 @@ a.btn {
     font-weight: 400;
 }
 
-
-
 .grid_2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
+// SEC 1
 #sec1 {
     .row {
         // padding: 10px;
     }
     .textrow {
         // padding-right: clamp(10px, 21%, 140px);
-        @include adaptiveValue(padding-right, 10, 140)
+        @include adaptiveValue(padding-right, 10, 140);
     }
     img {
         object-fit: cover;
@@ -166,7 +177,7 @@ a.btn {
 .textGrid {
     display: grid;
     &.gap39 {
-        grid-gap: 39px;
+        gap: 39px;
     }
     &.ji_stretch {
         justify-items: stretch;
@@ -177,13 +188,17 @@ a.btn {
 }
 
 //header section
-#header{
+#header {
     padding: 66px 0;
+    z-index: 200;
 }
 #header_nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
-
+    // overflow-x: hidden;
+}
+.menuToggler {
+    display: none;
 }
 .nav_list {
     display: flex;
@@ -198,7 +213,7 @@ a.btn {
         margin-right: 0;
     }
     // @media (max-width:748px) {
-        
+
     // }
 }
 
@@ -207,7 +222,7 @@ a.btn {
     color: $text;
     text-decoration: none;
     transition: all 0.2s ease;
-    text-wrap:nowrap;
+    text-wrap: nowrap;
     &.active,
     &:hover {
         // font-weight: 700;
@@ -222,75 +237,450 @@ hr {
     width: 100%;
 }
 
-
 // sec2: banner section
 
-#sec2{
-    .banners{
+#sec2 {
+    .banners {
         list-style: none;
-        
+
         // display: grid;
         // grid-template-columns: 0.6fr 1fr 0.3fr;
-        
+
         display: flex;
         justify-content: space-between;
+        flex-direction: row-reverse;
         // flex-wrap: wrap;
-        .banner{
+        .banner {
             background-color: $bannerBackground;
             color: $bannerText;
             // display: block;
             padding: 31px 50px;
 
-
-            p{
+            p {
                 font-size: 34px;
                 @include adaptiveValue(font-size, 24, 34);
                 font-weight: 500;
             }
-            h3{
+            h3 {
                 font-size: 18px;
                 @include adaptiveValue(font-size, 16, 18);
 
                 font-weight: 500;
             }
-            h2{
+            h2 {
                 font-weight: 500;
                 font-size: 24px;
                 @include adaptiveValue(font-size, 22, 24);
-
             }
-            
-            &:first-child{
+
+            &:nth-child(3) {
                 // padding-right: 148px;
                 @include adaptiveValue(padding-right, 10, 148, 600);
-
             }
-            &:nth-child(2){
+            &:nth-child(2) {
                 // margin-left: 77px;
                 @include adaptiveValue(margin-left, 5, 77, 600);
 
                 // padding-right: 234px;
                 @include adaptiveValue(padding-right, 10, 234, 600);
-
-
             }
-            &:nth-child(3){
+            &:nth-child(1) {
                 // margin-left: 129px;
-                @include adaptiveValue(margin-left, 7, 129  , 600);
+                @include adaptiveValue(margin-left, 7, 129, 600);
                 padding: 21px 34px;
                 @include adaptiveValue(padding-top, 5, 21, 600);
                 @include adaptiveValue(padding-bottom, 5, 21, 600);
                 @include adaptiveValue(padding-left, 5, 34, 600);
                 @include adaptiveValue(padding-right, 5, 34, 600);
-
-
-
-                
             }
         }
-        .header_banner{
+        .header_banner {
             background-color: $banner2Background;
             color: $banner2Text;
         }
+    }
+}
+
+@media (max-width: 768px) {
+    .grid_2 {
+        grid-template-columns: none;
+        grid-template-rows: auto auto;
+        gap: 10px;
+        .row:first-child {
+            grid-row: 2;
+        }
+    }
+}
+@media (max-width: 565px) {
+    .banners {
+        flex-direction: column !important;
+        .banner {
+            margin: 0px !important;
+            padding: 20px !important;
+        }
+    }
+}
+@media (max-width: 425px) {
+    .nav_list {
+        left: 100%;
+        position: fixed;
+        visibility: hidden;
+        transition: all 0.2s;
+        flex-direction: column;
+        height: 100%;
+        top: 50.66px;
+        padding: 20px;
+    }
+    .nav_list.active {
+        left: 0;
+        height: 100%;
+        top: 50.66px;
+        width: 100%;
+        visibility: visible;
+        background-color: #fff;
+        padding: 20px;
+    }
+    #header_nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 10px;
+        width: 100%;
+        position: fixed;
+        background-color: $backgroundColor;
+        top: 0;
+        left: 0;
+        border-bottom: 1px #333 solid;
+    }
+    .menuToggler {
+        display: block;
+        width: min-content;
+        padding: 10px;
+        background-color: #fff;
+        border: none;
+        transition: all 0.2s;
+        path {
+            transition: all 0.2s;
+        }
+        &:hover,
+        &:focus {
+            background-color: $btnBackground;
+            path {
+                stroke: #fff;
+            }
+        }
+        &:active {
+            background-color: darken($color: $btnBackground, $amount: 20);
+        }
+    }
+    .container {
+        padding: 2px;
+    }
+}
+
+// SEC 3
+#sec3 {
+    img {
+        display: block;
+        max-width: 428px;
+        // max-height: 186px;
+        width: 100%;
+        height: 186px;
+        object-fit: cover;
+    }
+    @media (max-width: 1111px) {
+        .grid_2 {
+            grid-template-columns: none;
+            grid-template-rows: auto auto;
+            gap: 50px;
+            .row:first-child {
+                grid-row: 2;
+            }
+        }
+    }
+    .image {
+        position: relative;
+        max-width: 428px;
+        overflow: visible;
+
+        // max-height: 186px;
+        width: 100%;
+    }
+    .img1 {
+        margin-right: 105px;
+        margin-bottom: 51px;
+    }
+    .img1::after {
+        content: "";
+        position: absolute;
+        top: 59px;
+        left: 266px;
+        width: 267px;
+        height: 40px;
+        background-color: $imageEffectColor;
+    }
+    .img2 {
+        margin-left: 80px;
+    }
+    .img2::after {
+        content: "";
+        position: absolute;
+        top: 145px;
+        right: 232px;
+        width: 267px;
+        height: 65px;
+        background-color: $imageEffectColor;
+    }
+    .textrow {
+        h2 {
+            margin-bottom: 41px;
+            @include adaptiveValue(font-size, 36, 58);
+        }
+    }
+    .imgrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow: hidden;
+    }
+}
+
+// SEC4
+
+#sec4 {
+    h2 {
+        @include adaptiveValue(font-size, 46, 68);
+        width: 100%;
+        text-align: center;
+    }
+    .customers {
+        list-style: none;
+        .grid {
+            display: flex;
+        }
+
+        .customer {
+            list-style: none;
+
+            background-color: $customerBackground;
+            padding: 48px 36px;
+            border-radius: 10px;
+            img {
+                border-radius: 10px;
+                width: 349px;
+                @include adaptiveValue(width, 250, 349);
+                object-fit: cover;
+                height: 349px;
+                @include adaptiveValue(height, 250, 349);
+
+                position: relative;
+                overflow: visible;
+            }
+            .image {
+                position: relative;
+                margin-right: 75px;
+            }
+            .image::after {
+                content: "";
+                position: absolute;
+                bottom: -16px;
+                right: -25px;
+                width: 267px;
+                height: 32px;
+                background-color: $imageEffectColor;
+            }
+            h3 {
+                @include adaptiveValue(font-size, 28, 48);
+            }
+            @media (max-width: 710px) {
+                .grid {
+                    flex-direction: column;
+                    text-align: center;
+                    .image {
+                        margin: 0;
+                        margin-bottom: 16px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// SEC5
+#sec5 {
+    .grid2 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h2 {
+            width: clamp(200px, min-content, 300px);
+            @include adaptiveValue(font-size, 46, 68);
+            // @include adaptiveValue(margin-right, 10, 120, 360);
+            max-width: 300px;
+        }
+        p {
+            // @include adaptiveValue(margin-right, 10, 111, 360)
+            max-width: 521px;
+            width: 100%;
+        }
+    }
+    @media (max-width: 768px) {
+        .grid2 {
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 20px;
+            h2 {
+                margin: 0;
+                margin-bottom: 20px;
+            }
+            p {
+                margin: 0;
+                margin-bottom: 20px;
+            }
+        }
+    }
+    .articles {
+        list-style: none;
+        display: flex;
+        overflow-x: scroll;
+        .article {
+            @include adaptiveValue(width, 300, 436);
+
+            margin-right: 102px;
+            h3 {
+                @include adaptiveValue(font-size, 24, 32);
+            }
+            a.readMore {
+                color: $text;
+                text-decoration: none;
+                position: relative;
+                @include adaptiveValue(font-size, 24, 32);
+                &::after {
+                    content: "";
+                    width: 112px;
+                    height: 16px;
+                    background-color: $imageEffectColor;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                }
+            }
+            img {
+                aspect-ratio: 436 / 301;
+                max-width: 436px;
+                @include adaptiveValue(width, 300, 436);
+                border-radius: 10px;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+// FOOTER
+#footer {
+    display: flex;
+    justify-content: center;
+    background-color: $footerBackground;
+    ul {
+        list-style: none;
+    }
+    h2,
+    h3,
+    a,
+    .logo,
+    p {
+        color: $footerText;
+        text-decoration: none;
+    }
+    .logo {
+        @include adaptiveValue(font-size, 28, 48);
+    }
+    p {
+        @include adaptiveValue(font-size, 22, 28);
+        margin-right: 21px;
+    }
+    .grid1 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid $footerBorders;
+        border-radius: 2px;
+        padding: 68px 0;
+        
+        .text {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 510px) {
+            justify-content: center;
+            text-align: center;
+            .text {
+                justify-content: center;
+                text-align: center;
+                p,.logo{
+                    margin: 0;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+    .grid2 {
+        form {
+            display: flex;
+        }
+        // flex-wrap: wrap;
+        input {
+            border: none;
+            border-bottom: 2px solid $footerBorders;
+            background-color: transparent;
+            color: $footerText;
+            margin-right: 25px;
+            @include adaptiveValue(font-size, 18, 25);
+
+            &::placeholder {
+                color: $footerText;
+            }
+        }
+        button {
+            width: 69px;
+            height: 69px;
+        }
+        display: flex;
+        @media (max-width: 768px) {
+            flex-wrap: wrap;
+        }
+        // flex-wrap: wrap;
+        // margin: 0;
+        // display: inline-block;
+
+        padding-top: 70px;
+        .row:first-child {
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+        nav {
+        }
+        nav,
+        .navrow {
+            width: 100%;
+        }
+        .items {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
+            .item {
+                padding-right: 45px;
+                margin-bottom: 20px;
+            }
+        }
+        
+    }
+    .btn:hover{
+        color: $btnActiveText;
     }
 }
