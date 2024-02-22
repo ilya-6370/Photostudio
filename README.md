@@ -1,7 +1,11 @@
-Это верстка веб сайт-макета выполнен в html, scss(css), js.
-Макет эластичный и адаптивный, что позволит пользоваться сайтом как и на мобильном устройстве, так и на планшетах и компьютере.
+# Photostudio
 
+This is a website layout made in html, scss (css), js.
+The layout is elastic and adaptive, which will allow you to use the site both on a mobile device and on tablets and computers.
+Photos for the site can be of any size and still maintain the intended shape.
 
-................
-Публиичный дезайн был взят за референс
- Фото были взяты из https://pixabay.com/ из royalty-free секций. Имена придуманы, любые совпадения случайны.
+The public design was taken as a reference
+  Photos were taken from https://pixabay.com/ from the royalty-free sections. The names are made up, any similarities are accidental.
+
+Link to github:
+https://github.com/ilya-6370/Photostudio/tree/main
