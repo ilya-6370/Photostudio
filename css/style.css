@@ -378,7 +378,6 @@ hr {
   height: 349px;
   height: min(349px, 250px + 99 * (100vw - 320px) / 1120);
   position: relative;
-  overflow: visible;
 }
 #sec4 .customers .customer .image {
   position: relative;
