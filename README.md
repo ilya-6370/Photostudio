@@ -5,7 +5,7 @@ The layout is elastic and adaptive, which will allow you to use the site both on
 Photos for the site can be of any size and still maintain the intended shape.
 
 # Github pages (Preview website)
-https://github.com/ilya-6370/Photostudio
+[https://github.com/ilya-6370/Photostudio](https://ilya-6370.github.io/Photostudio/)
 
 # License and external resources
 The public design was taken as a reference
