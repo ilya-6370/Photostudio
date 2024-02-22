@@ -1,4 +1,4 @@
-#Photostudio
+# Photostudio
 
 This is a website layout made in html, scss (css), js.
 The layout is elastic and adaptive, which will allow you to use the site both on a mobile device and on tablets and computers.
